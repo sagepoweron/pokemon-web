@@ -1,22 +1,45 @@
+const results = document.getElementById("results");
+
+const searchText = document.getElementById("query");
 const searchButton = document.getElementById("searchButton");
 const clearButton = document.getElementById("clear");
-const searchText = document.getElementById("searchText");
-const pokemonList = document.getElementById("pokemonList");
-
-searchButton.addEventListener("click", searchForPokemon);
+searchButton.addEventListener("click", onSearchClicked);
 clearButton.addEventListener("click", clearList);
+
+const offsetButton = document.getElementById("offset");
+const limitButton = document.getElementById("limit");
+const multiButton = document.getElementById("multi");
+multiButton.addEventListener("click", onMultiClicked);
 
 //fetchData();
 
 
-async function searchForPokemon()
+async function onSearchClicked()
 {
     clearList();
+    
+    const query = searchText.value.toLowerCase();
+    await search(query);
+}
 
+async function onMultiClicked()
+{
+    clearList();
+    
+    //const query = searchText.value.toLowerCase();
+    const limit = limitButton.value;
+    const offset = offsetButton.value;
+    await searchMultiple(offset, limit);
+}
+
+
+
+
+async function search(query)
+{
     try
     {
-        const searchValue = searchText.value.toLowerCase();
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + searchValue);
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + query);
 
         if (!response.ok)
         {
@@ -25,17 +48,7 @@ async function searchForPokemon()
 
         const data = await response.json();
 
-        const container = document.createElement("li");
-        container.classList.add("card");
-        pokemonList.append(container);
-        
-        const name = document.createElement("h1");
-        name.innerText = data.name;
-        container.append(name);
-
-        const image = document.createElement("img");
-        image.src = data.sprites.front_default;
-        container.append(image);
+        createCard(data);
     }
     catch (error)
     {
@@ -43,37 +56,11 @@ async function searchForPokemon()
     }
 }
 
-
-
-
-async function searchForPokemonByName(searchName)
+function goInfoPage(query)
 {
-    try
-    {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + searchName.toLowerCase());
-
-        if (!response.ok)
-        {
-            throw new Error("Unable to fetch data");
-        }
-
-        const data = await response.json();
-
-        const container = document.createElement("div");
-        pokemonList.append(container);
-        
-        const name = document.createElement("h1");
-        name.innerText = data.name;
-        container.append(name);
-
-        const image = document.createElement("img");
-        image.src = data.sprites.front_default;
-        container.append(image);
-    }
-    catch (error)
-    {
-        console.error(error);
-    }
+    let params = new URLSearchParams();
+    params.append("search", query);
+    window.location.href = "info.html?" + params.toString();
 }
 
 
@@ -86,13 +73,13 @@ async function searchForPokemonByName(searchName)
 
 
 
-
-
-async function searchForMultiplePokemon()
+async function searchMultiple(offset, limit)
 {
     try
     {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=5&offset=0");
+        const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+        const response = await fetch(url);
+        //const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0");
 
         if (!response.ok)
         {
@@ -100,22 +87,9 @@ async function searchForMultiplePokemon()
         }
 
         const data = await response.json();
-        console.log(data);
 
         data.results.forEach(element => {
-            const container = document.createElement("div");
-            pokemonList.append(container);
-            
-            const name = document.createElement("h1");
-            name.innerText = element.name;
-            container.append(name);
-
-            const button = document.createElement("button");
-            button.innerText = "Search";
-            button.addEventListener("click", () => {
-                searchForPokemonByName(element.name);
-            });
-            container.append(button);
+            createResult(element);
         });
 
         
@@ -129,5 +103,49 @@ async function searchForMultiplePokemon()
 
 function clearList()
 {
-    pokemonList.replaceChildren();
+    results.replaceChildren();
+}
+
+
+function capitalizeFirstLetter(str)
+{
+    const [first, ...rest] = str;
+    return first.toUpperCase() + rest.join('');
+}
+
+function createCard(data)
+{
+    const card = document.createElement("div");
+    card.classList.add("card");
+    results.append(card);
+    
+    const name = document.createElement("h1");
+    name.innerText = capitalizeFirstLetter(data.name);
+    card.append(name);
+
+    const image = document.createElement("img");
+    image.src = data.sprites.front_default;
+    card.append(image);
+
+    const infoButton = document.createElement("button");
+    infoButton.innerText = "Info";
+    infoButton.onclick = () => goInfoPage(data.name);
+    card.append(infoButton);
+}
+
+function createResult(data)
+{
+    const card = document.createElement("li");
+    card.classList.add("result");
+    results.append(card);
+
+    const name = document.createElement("h4");
+    name.innerText = capitalizeFirstLetter(data.name);
+    card.append(name);
+
+    const infoButton = document.createElement("button");
+    infoButton.innerText = "Info";
+    infoButton.onclick = () => goInfoPage(data.name);
+    card.append(infoButton);
+
 }

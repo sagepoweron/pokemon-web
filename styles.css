@@ -26,3 +26,15 @@ ul
     background-color: azure;
     border: 1px solid black;
 }
+
+.result
+{
+    width: 200px;
+    height: 32px;
+    padding: 8px;
+    background-color: azure;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
