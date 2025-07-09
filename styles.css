@@ -27,6 +27,17 @@ ul
     border: 1px solid black;
 }
 
+.results
+{
+    max-height: 400px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    background-color: lightgray;
+    border: 1px solid darkgray;
+}
+
 .result
 {
     width: 200px;
@@ -34,7 +45,14 @@ ul
     padding: 8px;
     background-color: azure;
     border: 1px solid black;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.chart
+{
+    width: 400px;
+    height: 400px;
 }
