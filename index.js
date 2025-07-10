@@ -11,8 +11,14 @@ const multiButton = document.getElementById("multi");
 
 multiButton.addEventListener("click", onMultiClicked);
 
-const statsButton = document.getElementById("statsButton");
-statsButton.addEventListener("click", onStatsClicked);
+//const statsButton = document.getElementById("statsButton");
+//statsButton.addEventListener("click", onStatsClicked);
+
+const compareList = document.getElementById("compareList");
+const goComparePageButton = document.getElementById("goComparePage");
+goComparePageButton.addEventListener("click", goComparePage);
+const clearCompareListButton = document.getElementById("clearCompareList");
+clearCompareListButton.addEventListener("click", clearCompare);
 
 //fetchData();
 
@@ -71,17 +77,101 @@ function goInfoPage(query)
     window.location.href = "stats.html?" + params.toString();
 }
 
-
-
-function saveInfo(index)
+function goComparePage()
 {
-    sessionStorage.setItem("index", index);
-}
-function save2(index)
-{
-    sessionStorage.setItem("index2", index);
+    window.location.href = "compare.html";
 }
 
+
+
+
+
+
+function addCompare(name)
+{
+    let names = [];
+
+    const data = sessionStorage.getItem('names');
+    if (data)
+    {
+        names = JSON.parse(data);
+        if (names.includes(name)) return;
+    }
+
+    names.push(name);
+    sessionStorage.setItem("names", JSON.stringify(names));
+
+    updateCompareList();
+}
+function removeCompare(name)
+{
+    const data = sessionStorage.getItem('names');
+    if (data)
+    {
+        let names = JSON.parse(data);
+
+        const index = names.indexOf(name);
+        if (index > -1)
+        {
+            names.splice(index, 1);
+        }
+
+        sessionStorage.setItem("names", JSON.stringify(names));
+    }
+    
+    updateCompareList();
+}
+
+function updateCompareList()
+{
+    compareList.replaceChildren();
+
+    const data = sessionStorage.getItem('names');
+    if (data)
+    {
+        let names = JSON.parse(data);
+
+        for (let index = 0; index < names.length; index++)
+        {
+            const name = names[index];
+            createCompareCard(name);
+        }
+    }
+}
+updateCompareList();
+
+
+function createCompareCard(name)
+{
+    const card = document.createElement("li");
+    card.classList.add("result");
+    compareList.append(card);
+
+    {
+        const element = document.createElement("h4");
+        element.innerText = capitalizeFirstLetter(name);
+        card.append(element);
+    }
+
+    {
+        const button = document.createElement("button");
+        button.innerText = "Remove from compare";
+        button.onclick = () => removeCompare(name);
+        card.append(button);
+    }
+}
+
+
+
+
+
+
+
+function clearCompare()
+{
+    sessionStorage.clear();
+    compareList.replaceChildren();
+}
 
 
 
@@ -141,13 +231,11 @@ function createResult(data)
     infoButton.onclick = () => goInfoPage(data.name);
     card.append(infoButton);
 
-    const saveButton = document.createElement("button");
-    saveButton.innerText = "Save";
-    saveButton.onclick = () => saveInfo(data.name);
-    card.append(saveButton);
-
-    const saveButton2 = document.createElement("button");
-    saveButton2.innerText = "Save";
-    saveButton2.onclick = () => save2(data.name);
-    card.append(saveButton2);
+    {
+        const button = document.createElement("button");
+        button.innerText = "Add to compare";
+        button.onclick = () => addCompare(data.name);
+        card.append(button);
+    }
+    
 }

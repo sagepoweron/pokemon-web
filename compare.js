@@ -5,77 +5,91 @@ const chartHolder = document.getElementById("chartHolder");
 
 loadInfo();
 
-
 async function loadInfo()
 {
-    let index = sessionStorage.getItem("index");
-    console.log(index);
+    let names = [];
 
-    let index2 = sessionStorage.getItem("index2");
+    const data = sessionStorage.getItem('names');
+    if (data)
+    {
+        names = JSON.parse(data);
+    }
+    else
+    {
+        return;
+    }
 
-    if (index === null) return;
+    let datas = [];
+    for (let index = 0; index < names.length; index++)
+    {
+        const element = names[index];
+        let data2 = await getData(element);
+        createCard(data2);
+        datas.push(data2);
+    }
+    createChart(datas);
+}
 
+async function getData(name)
+{
     try
     {
-        
-        //search = params.get("search");
-        //const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + search);
-        //const response = await fetch("https://pokeapi.co/api/v2/pokemon/blissey");
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + index);
-        const response2 = await fetch("https://pokeapi.co/api/v2/pokemon/" + index2);
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon/" + name);
 
         if (!response.ok)
         {
             throw new Error("Unable to fetch data");
         }
 
-        const data = await response.json();
-        const data2 = await response2.json();
-
-        const card = document.createElement("div");
-        card.classList.add("card");
-        cardHolder.append(card);
-        
-        const name = document.createElement("h1");
-        name.innerText = data.name;
-        card.append(name);
-
-        const image = document.createElement("img");
-        image.src = data.sprites.front_default;
-        card.append(image);
-
-        //console.log(data.stats[0].stat.name);
-        //console.log(data.stats[0].base_stat);
-
-        createChart(data.stats, data2.stats);
+        return await response.json();
     }
     catch (error)
     {
         console.error(error);
     }
 }
-
-
-
-function createChart(stats, stats2)
+function createCard(data)
 {
-    let myData = [stats[0].base_stat, stats[1].base_stat, stats[2].base_stat, stats[3].base_stat, stats[4].base_stat, stats[5].base_stat];
-    let myData2 = [stats2[0].base_stat, stats2[1].base_stat, stats2[2].base_stat, stats2[3].base_stat, stats2[4].base_stat, stats2[5].base_stat];
+    const card = document.createElement("div");
+    card.classList.add("card");
+    cardHolder.append(card);
+    
+    {
+        const element = document.createElement("h1");
+        element.innerText = data.name;
+        card.append(element);
+    }
+    
+    {
+        const element = document.createElement("img");
+        element.src = data.sprites.front_default;
+        card.append(element);
+    }
+}
 
-  new Chart(chartHolder, {
+function createDataset(data)
+{
+    let chartLabel = data.name;
+
+    let chartData = data.stats.map(element => element.base_stat);
+    [chartData[3], chartData[5]] = [chartData[5], chartData[3]]; //swap speed and sp. attack to match games
+
+    return {label: chartLabel, data: chartData, borderWidth: 1};
+}
+
+
+function createChart(datas)
+{
+    const datasets = datas.map(element => createDataset(element));
+
+    let chartLabels = ["HP", "Attack", "Defense", "Speed", "Sp. Def", "Sp. ATK"];
+    //let chartLabels = datas[0].stats.map(element => element.stat.name);
+
+    new Chart(chartHolder, {
     type: 'radar',
     data: {
-      //labels: [stats[0].stat.name, stats[1].stat.name, stats[2].stat.name, stats[3].stat.name, 'Purple', 'Orange'],
-      labels: ["HP", "Attack", "Defense", "Sp. ATK", "Sp. Def", "Speed"],
-      datasets: [{
-        label: 'Base Stats',
-        data: myData,
-        borderWidth: 1
-      }, {
-        label: 'Second',
-        data: myData2,
-        borderWidth: 1
-      }]
+      labels: chartLabels,
+      datasets: datasets
     },
     options: {
         responsive: true,
@@ -95,9 +109,7 @@ function createChart(stats, stats2)
                 min: 0,
                 max: 255
             }
-    }
+        }
     }
   });
 }
-
-
