@@ -20,6 +20,9 @@ goComparePageButton.addEventListener("click", goComparePage);
 const clearCompareListButton = document.getElementById("clearCompareList");
 clearCompareListButton.addEventListener("click", clearCompare);
 
+const loadingBar = document.getElementById("loadingBar");
+
+
 //fetchData();
 
 
@@ -155,7 +158,7 @@ function createCompareCard(name)
 
     {
         const button = document.createElement("button");
-        button.innerText = "Remove from compare";
+        button.innerText = "Remove \u{1F7A8}";
         button.onclick = () => removeCompare(name);
         card.append(button);
     }
@@ -181,6 +184,8 @@ async function searchMultiple(offset, limit)
 {
     try
     {
+        loadingBar.classList.remove("hidden");
+
         const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
         const response = await fetch(url);
         //const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0");
@@ -196,7 +201,7 @@ async function searchMultiple(offset, limit)
             createResult(element);
         });
 
-        
+        loadingBar.classList.add("hidden");
     }
     catch (error)
     {
@@ -227,13 +232,13 @@ function createResult(data)
     card.append(name);
 
     const infoButton = document.createElement("button");
-    infoButton.innerText = "Info";
+    infoButton.innerText = "Info \u{2192}";
     infoButton.onclick = () => goInfoPage(data.name);
     card.append(infoButton);
 
     {
         const button = document.createElement("button");
-        button.innerText = "Add to compare";
+        button.innerText = "Compare";
         button.onclick = () => addCompare(data.name);
         card.append(button);
     }
