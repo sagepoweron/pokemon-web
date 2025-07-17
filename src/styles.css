@@ -4,7 +4,7 @@
 }
 
 
-.content
+body
 {
     display: flex;
     flex-direction: column;
@@ -19,6 +19,7 @@ ul
     margin: 0;
     padding: 0;
 }
+
 
 .card
 {
@@ -40,7 +41,6 @@ ul
 
 .result
 {
-    width: 200px;
     height: 32px;
     padding: 8px;
     background-color: azure;
@@ -59,7 +59,11 @@ ul
 
 
 
-
+.gridBox
+{
+    display: grid;
+    grid-template-columns: 1fr;
+}
 
 
 .panel
@@ -75,23 +79,47 @@ ul
     display: none;
 }
 
+.inputBox
+{
+    width: 100px;
+}
 
-.loader {
+.loadingContainer
+{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+
+.loader
+{
     width: 48px;
     height: 48px;
-    border: 5px solid #222222;
+    border: 5px solid skyblue;
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    }
+}
 
-    @keyframes rotation {
-    0% {
+@keyframes rotation
+{
+    0%
+    {
         transform: rotate(0deg);
     }
-    100% {
+    100%
+    {
         transform: rotate(360deg);
     }
-    } 
+}
+
+@media (min-width: 800px)
+{
+    .gridBox
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+}

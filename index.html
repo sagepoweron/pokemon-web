@@ -1,54 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title</title>
-    <link rel="stylesheet" href="styles.css">
-    
-    <script src="index.js" defer></script>
-</head>
-<body>
-    
-    <div class="content">
-        <h1>Search</h1>
-        <div class="panel">
-            <div>
-                <label>Search: <input type="text" id="query" placeholder="Name/Number"></label>
-                <button id="searchButton">Search &#128269;</button>
-                
-            </div>
-            <hr>
-            <div>
-                <label for="offset">Offset: </label>
-                <input type="number" id="offset" value="0" min="0">
-                <label for="limit">Limit: </label>
-                <input type="number" id="limit" value="10" min="10" max="100">
-                <button id="multi">List &#128269;</button>
-            </div>
-            <hr>
-            <div>
-                <button id="clear">Clear &#128936;</button>
-            </div>
-        </div>
-        <div class="panel">
-            <ul id="results"></ul>
-        </div>
-        
-        <h1>Compare</h1>
-        <div class="panel">
-            <button id="goComparePage">Compare &#128279;</button>
-            <button id="clearCompareList">Clear &#128936;</button>
-        </div>
-        <div class="panel">
-            <ul id="compareList"></ul>
-        </div>
-
-        <div id="loadingBar" class="hidden">
-            <span class="loader"></span>
-        </div>
-        
-    </div>
-    
-</body>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Web</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
