@@ -18,11 +18,11 @@ export async function getPokemon(query: string)
             return data.results;
         }
 
-        return [data];
+        return data;
     }
     catch (error)
     {
-        return [];
+        console.error(error);
     }
 }
 

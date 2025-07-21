@@ -9,7 +9,7 @@ function Search()
     const [searchQuery, setSearchQuery] = useState("1");
     const [offset, setOffset] = useState("0");
     const [limit, setLimit] = useState("10");
-    const [pokemonList, setPokemonList] = useState([]);
+    const [pokemonList, setPokemonList] = useState<any[]>([]);
     const [compareList, setCompareList] = useState(() => {
         return JSON.parse(sessionStorage.getItem('compareList') || "[]");
     });
@@ -27,10 +27,6 @@ function Search()
     {
         setCompareList([]);
     }
-    function testButton()
-    {
-        console.log(compareList);
-    }
 
     async function handleSearch(e: React.FormEvent<HTMLFormElement>)
     {
@@ -38,7 +34,7 @@ function Search()
         setLoading(true);
         //await sleep(1000);
         const result = await getPokemon(searchQuery);
-        setPokemonList(result);
+        setPokemonList([result]);
         setLoading(false);
     }
     async function handleSearchList(e: React.FormEvent<HTMLFormElement>)
@@ -87,7 +83,6 @@ function Search()
                 <div className="panel">
                     <button id="goComparePage">Compare &#128279;</button>
                     <button onClick={clearCompareListClicked}>Clear List &#128936;</button>
-                    <button onClick={testButton}>Test</button>
                 </div>
                 <div className="panel">
                     <CompareList list={compareList}></CompareList>
