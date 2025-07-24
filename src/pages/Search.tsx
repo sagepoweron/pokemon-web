@@ -1,31 +1,30 @@
 export default Search;
 import { useEffect, useState, type Key } from "react";
 import { getPokemon, getPokemonList} from "../services/api.ts";
-import Results from "../components/Results.tsx";
+import { useCompareContext } from "../contexts/CompareContext";
+import CompareListPanel from "../components/CompareListPanel.tsx";
 //import sleep from "../services/helpers.ts";
 
 function Search()
 {
+    const {addToCompareList, removeFromCompareList, isInCompareList, compareList } = useCompareContext();
+
     const [searchQuery, setSearchQuery] = useState("1");
     const [offset, setOffset] = useState("0");
     const [limit, setLimit] = useState("10");
     const [pokemonList, setPokemonList] = useState<any[]>([]);
-    const [compareList, setCompareList] = useState(() => {
+    /*const [compareList, setCompareList] = useState(() => {
         return JSON.parse(sessionStorage.getItem('compareList') || "[]");
-    });
+    });*/
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+    /*useEffect(() => {
         sessionStorage.setItem('compareList', JSON.stringify(compareList));
-    }, [compareList]);
+    }, [compareList]);*/
 
     function clearSearchListClicked()
     {
         setPokemonList([]);
-    }
-    function clearCompareListClicked()
-    {
-        setCompareList([]);
     }
 
     async function handleSearch(e: React.FormEvent<HTMLFormElement>)
@@ -74,20 +73,11 @@ function Search()
                     </div>
                 </div>
                 <div className="panel">
-                    <Results list={pokemonList} onAddClicked={addResult}></Results>
+                    <Results list={pokemonList}></Results>
                 </div>
             </div>
-            
-            <div>
-                <h1>Compare</h1>
-                <div className="panel">
-                    <button id="goComparePage">Compare &#128279;</button>
-                    <button onClick={clearCompareListClicked}>Clear List &#128936;</button>
-                </div>
-                <div className="panel">
-                    <CompareList list={compareList}></CompareList>
-                </div>
-            </div>
+
+            <CompareListPanel></CompareListPanel>
         </div>
         
         
@@ -99,7 +89,7 @@ function Search()
 
     
 
-    /*function Results({list}: {list: any})
+    function Results({list}: {list: any})
     {
         if (list.length === 0)
         {
@@ -109,29 +99,15 @@ function Search()
         }
         return (
         <ul>
-            {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name} add={ addResult }></ResultCard></li>)}
-        </ul>
-        );
-    }*/
-    function CompareList({list}: {list: any})
-    {
-        if (list.length === 0)
-        {
-            return (
-                <div>No results.</div>
-            );
-        }
-        return (
-        <ul>
-            {list.map((item: string, index: Key | null | undefined) => <li key = {index}><CompareCard name = {item}></CompareCard></li>)}
+            {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name}></ResultCard></li>)}
         </ul>
         );
     }
-    /*function ResultCard({ name }: { name: string })
+    function ResultCard({ name }: { name: string })
     {
-        function infoClicked()
+        function removeClicked()
         {
-            alert("info");
+            removeFromCompareList(name);
         }
         function addClicked()
         {
@@ -140,46 +116,26 @@ function Search()
                 return;
             }
 
-            setCompareList([...compareList, name]);
+            addToCompareList(name);
+        }
+
+        if (isInCompareList(name))
+        {
+            return(
+                <div className="result">
+                    <h4>{name}</h4>
+                    <button onClick={removeClicked}>Remove</button>
+                </div>
+            );
         }
 
 
         return(
-        <div className="result">
-            <h4>{name}</h4>
-            <button onClick={infoClicked}>Info</button>
-            <button onClick={addClicked}>Add</button>
-        </div>
-        );
-    }*/
-    function CompareCard({ name }: { name: string })
-    {
-        function removeClicked()
-        {
-            const list = [...compareList];
-            const index = list.indexOf(name);
-            if (index > -1)
-            {
-                list.splice(index, 1);
-            }
-            setCompareList(list);
-        }
-
-        return(
-        <div className="result">
-            <h4>{name}</h4>
-            <button onClick={removeClicked}>Remove</button>
-        </div>
+            <div className="result">
+                <h4>{name}</h4>
+                <button onClick={addClicked}>Add</button>
+            </div>
         );
     }
 
-    function addResult(name: string)
-    {
-        if (compareList.includes(name))
-        {
-            return;
-        }
-
-        setCompareList([...compareList, name]);
-    }
 }

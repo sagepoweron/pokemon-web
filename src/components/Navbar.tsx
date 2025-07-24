@@ -9,9 +9,14 @@ function Navbar()
                 <Link to="/">
                     <button>Home</button>
                 </Link>
-                
+                <Link to="/search">
+                    <button>Search</button>
+                </Link>
                 <Link to="/info">
                     <button>Info</button>
+                </Link>
+                <Link to="/compare">
+                    <button>Compare</button>
                 </Link>
             </div>
         </nav>

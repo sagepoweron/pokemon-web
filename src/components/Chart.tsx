@@ -1,34 +1,22 @@
+import type { BaseStat } from "../types";
 import { Radar } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
 } from 'chart.js';
 ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
 );
-
-
-export interface BaseStat {
-  base_stat: number
-  effort: number
-  stat: Stat
-}
-
-export interface Stat {
-  name: string
-  url: string
-}
-
 
 
 export function Chart({name, stats}: {name:string, stats:BaseStat[]})
