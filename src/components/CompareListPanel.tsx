@@ -12,7 +12,6 @@ function CompareListPanel()
         <div>
             <h1>Compare</h1>
             <div className="panel">
-                <button id="goComparePage">Compare &#128279;</button>
                 <button onClick={clearCompareListClicked}>Clear List &#128936;</button>
             </div>
             <div className="panel">

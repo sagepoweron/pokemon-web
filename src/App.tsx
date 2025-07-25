@@ -7,6 +7,7 @@ import Info from "./pages/Info";
 import Compare from "./pages/Compare";
 import { CompareProvider } from "./contexts/CompareContext";
 
+
 function App()
 {
   return (

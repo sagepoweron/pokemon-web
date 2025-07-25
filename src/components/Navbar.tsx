@@ -12,9 +12,6 @@ function Navbar()
                 <Link to="/search">
                     <button>Search</button>
                 </Link>
-                <Link to="/info">
-                    <button>Info</button>
-                </Link>
                 <Link to="/compare">
                     <button>Compare</button>
                 </Link>

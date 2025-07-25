@@ -1,8 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
-type Props = {
-  children?: React.ReactNode
-};
+type Props = { children: ReactNode};
 
 const CompareContext = createContext<any>(null);
 

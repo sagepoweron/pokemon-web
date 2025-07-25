@@ -1,23 +1,21 @@
 export default Search;
-import { useEffect, useState, type Key } from "react";
+import { useState, type Key } from "react";
 import { getPokemon, getPokemonList} from "../services/api.ts";
-import { useCompareContext } from "../contexts/CompareContext";
 import CompareListPanel from "../components/CompareListPanel.tsx";
+import ResultCard from "../components/ResultCard.tsx";
 //import sleep from "../services/helpers.ts";
 
 function Search()
 {
-    const {addToCompareList, removeFromCompareList, isInCompareList, compareList } = useCompareContext();
-
     const [searchQuery, setSearchQuery] = useState("1");
     const [offset, setOffset] = useState("0");
     const [limit, setLimit] = useState("10");
     const [pokemonList, setPokemonList] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    
     /*const [compareList, setCompareList] = useState(() => {
         return JSON.parse(sessionStorage.getItem('compareList') || "[]");
     });*/
-    const [loading, setLoading] = useState(false);
-
     /*useEffect(() => {
         sessionStorage.setItem('compareList', JSON.stringify(compareList));
     }, [compareList]);*/
@@ -85,57 +83,21 @@ function Search()
         {loading? <div className="loadingContainer"><span className="loader"></span></div> : <></>}
     </div>
     );
+}
 
 
-    
 
-    function Results({list}: {list: any})
+function Results({list}: {list: any})
+{
+    if (list.length === 0)
     {
-        if (list.length === 0)
-        {
-            return (
-                <div>No results.</div>
-            );
-        }
         return (
-        <ul>
-            {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name}></ResultCard></li>)}
-        </ul>
+            <div>No results.</div>
         );
     }
-    function ResultCard({ name }: { name: string })
-    {
-        function removeClicked()
-        {
-            removeFromCompareList(name);
-        }
-        function addClicked()
-        {
-            if (compareList.includes(name))
-            {
-                return;
-            }
-
-            addToCompareList(name);
-        }
-
-        if (isInCompareList(name))
-        {
-            return(
-                <div className="result">
-                    <h4>{name}</h4>
-                    <button onClick={removeClicked}>Remove</button>
-                </div>
-            );
-        }
-
-
-        return(
-            <div className="result">
-                <h4>{name}</h4>
-                <button onClick={addClicked}>Add</button>
-            </div>
-        );
-    }
-
+    return (
+    <ul>
+        {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name}></ResultCard></li>)}
+    </ul>
+    );
 }
