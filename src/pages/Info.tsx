@@ -2,6 +2,8 @@ import { getPokemon } from "../services/api";
 import { Chart } from "../components/Chart";
 import { useEffect, useState } from "react";
 import { isNullOrUndef } from "chart.js/helpers";
+import StatsCard from "../components/StatsCard";
+import type { Pokemon } from "../types";
 
 export default Info;
 
@@ -25,32 +27,26 @@ function Info()
     }, []);
 
     //const [stats, setStats] = useState<BaseStat[]>([]);
-    const [pokemon, setPokemon] = useState<any>();
+    const [pokemon, setPokemon] = useState<Pokemon>();
 
-    
-    function renderChart()
+
+    if (isNullOrUndef(pokemon))
     {
-        //return pokemon.map((item, index: Key | null | undefined) => <div key = {index}><Chart name = {item.name} stats={item.stats}></Chart></div>)
-        /*if (pokemon.length <= 0) {
-            return <p>No Results!</p>;
-        } else {
-            return <Chart name={pokemon[0].name} stats={stats}></Chart>
-        }*/
-        if (isNullOrUndef(pokemon))
-        {
-            return <div>No Data!</div>
-        }
-        else
-        {
-            return <Chart name={pokemon.name} stats={pokemon.stats}></Chart>
-        }
+        return (
+            <div>No Data!</div>
+        );
     }
-
-    return (
-        <div className="content">
-        <h1>Info</h1>
-        {renderChart()}
-        </div>
-    );
+    else
+    {
+        return (
+            <div className="content">
+                <div>
+                    <h1>Info</h1>
+                    <Chart name={pokemon.name} stats={pokemon.stats}></Chart>
+                </div>
+                <StatsCard pokemon={pokemon}></StatsCard>
+            </div>
+        );
+    }
 }
 
