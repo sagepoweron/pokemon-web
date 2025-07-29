@@ -1,4 +1,3 @@
-import type { BaseStat } from "../types";
 import { Radar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -9,6 +8,8 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import type { Pokemon } from "../types";
+import { isNullOrUndef } from "chart.js/helpers";
 ChartJS.register(
     RadialLinearScale,
     PointElement,
@@ -18,25 +19,21 @@ ChartJS.register(
     Legend
 );
 
-
-export function Chart({name, stats}: {name:string, stats:BaseStat[]})
+export function Chart({pokemon}: {pokemon: Pokemon})
 {
-    if (stats.length === 0)
+    if (isNullOrUndef(pokemon))
     {
         return(<div>No Results</div>);
     }
 
-
+    const stats = [...pokemon.stats];
     [stats[5], stats[3]] = [stats[3], stats[5]]; //swap sp attack and speed to match game layout
 
-    //let myData = [stats[0].base_stat, stats[1].base_stat, stats[2].base_stat, stats[5].base_stat, stats[4].base_stat, stats[3].base_stat];
-
     const chartData = {
-        //labels: [stats[0].stat.name, stats[1].stat.name, stats[2].stat.name, stats[3].stat.name, 'Purple', 'Orange'],
-        //labels: ["HP", "Attack", "Defense", "Speed", "Sp. Def", "Sp. ATK"],
-        labels: stats.map((element) => element.stat.name),
+        labels: ["HP", "Attack", "Defense", "Speed", "Sp. Def", "Sp. ATK"],
+        //labels: pokemon.stats.map((element) => element.stat.name),
         datasets: [{
-            label: name,
+            label: "Base Stats",
             data: stats.map((element) => element.base_stat),
             backgroundColor: "rgba(255, 0, 0, 0.3)",
             borderColor: "rgba(255, 0, 0, 1)",
@@ -66,7 +63,6 @@ export function Chart({name, stats}: {name:string, stats:BaseStat[]})
 
     return(
         <Radar data={chartData} options={chartOptions}>
-
         </Radar>
     );
 }

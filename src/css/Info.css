@@ -1,0 +1,20 @@
+.content
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pixelated
+{
+    width: 200px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+.chartContainer
+{
+    width: 300px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}

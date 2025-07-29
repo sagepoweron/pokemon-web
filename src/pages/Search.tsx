@@ -3,6 +3,7 @@ import { useState, type Key } from "react";
 import { getPokemon, getPokemonList} from "../services/api.ts";
 import CompareListPanel from "../components/CompareListPanel.tsx";
 import ResultCard from "../components/ResultCard.tsx";
+import "../css/Search.css";
 //import sleep from "../services/helpers.ts";
 
 function Search()
@@ -96,7 +97,7 @@ function Results({list}: {list: any})
         );
     }
     return (
-    <ul>
+    <ul className="results">
         {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name}></ResultCard></li>)}
     </ul>
     );

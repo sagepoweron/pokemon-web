@@ -1,0 +1,22 @@
+.results
+{
+    max-height: 400px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    
+    background-color: lightgray;
+    border: 1px solid darkgray;
+}
+
+.result
+{
+    height: 32px;
+    padding: 8px;
+    background-color: azure;
+    border: 1px solid black;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

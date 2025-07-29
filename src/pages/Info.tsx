@@ -2,8 +2,9 @@ import { getPokemon } from "../services/api";
 import { Chart } from "../components/Chart";
 import { useEffect, useState } from "react";
 import { isNullOrUndef } from "chart.js/helpers";
-import StatsCard from "../components/StatsCard";
+import StatsTable from "../components/StatsTable";
 import type { Pokemon } from "../types";
+import "../css/Info.css";
 
 export default Info;
 
@@ -26,7 +27,6 @@ function Info()
         
     }, []);
 
-    //const [stats, setStats] = useState<BaseStat[]>([]);
     const [pokemon, setPokemon] = useState<Pokemon>();
 
 
@@ -42,9 +42,12 @@ function Info()
             <div className="content">
                 <div>
                     <h1>Info</h1>
-                    <Chart name={pokemon.name} stats={pokemon.stats}></Chart>
+                    <img src={pokemon.sprites.front_default} className="pixelated"></img>
+                    <div className="chartContainer">
+                        <Chart pokemon={pokemon}></Chart>
+                    </div>
                 </div>
-                <StatsCard pokemon={pokemon}></StatsCard>
+                <StatsTable pokemon={pokemon}></StatsTable>
             </div>
         );
     }

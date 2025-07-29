@@ -1,0 +1,67 @@
+.table
+{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    width: 600px;
+    padding: 4px;
+    margin-bottom: 100px;
+}
+
+.row
+{
+    display: flex;
+}
+
+.cell
+{
+    flex: 1;
+    padding: 4px;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.header
+{
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+input
+{
+    width: 40px;
+}
+
+.bar
+{
+    width: 200px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    margin: 4px;
+}
+
+.row
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.stack
+{
+    border: 1px solid gray;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.strong
+{
+    background-color: pink;
+}
+.weak
+{
+    background-color: lightblue;
+}
