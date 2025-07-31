@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { isNullOrUndef } from "chart.js/helpers";
 import StatsTable from "../components/StatsTable";
 import type { Pokemon } from "../types";
-import "../css/Info.css";
+import "./InfoPage.css";
 
-export default Info;
+export default InfoPage;
 
-function Info()
+function InfoPage()
 {
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name");

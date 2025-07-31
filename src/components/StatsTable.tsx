@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/StatsTable.css";
+import "./StatsTable.css";
 import type { Pokemon } from "../types";
 
 export default StatsTable;

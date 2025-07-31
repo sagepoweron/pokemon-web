@@ -1,12 +1,12 @@
-export default Search;
+export default SearchPage;
 import { useState, type Key } from "react";
-import { getPokemon, getPokemonList} from "../services/api.ts";
-import CompareListPanel from "../components/CompareListPanel.tsx";
-import ResultCard from "../components/ResultCard.tsx";
 import "../css/Search.css";
+import { getPokemon, getPokemonList } from "../../services/api.ts";
+import CompareListPanel from "../../components/Compare/CompareListPanel.tsx";
+import ResultCard from "../../components/ResultCard.tsx";
 //import sleep from "../services/helpers.ts";
 
-function Search()
+function SearchPage()
 {
     const [searchQuery, setSearchQuery] = useState("1");
     const [offset, setOffset] = useState("0");
