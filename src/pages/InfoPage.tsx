@@ -1,5 +1,5 @@
 import { getPokemon } from "../services/api";
-import { Chart } from "../components/Chart";
+import Chart from "../components/Chart";
 import { useEffect, useState } from "react";
 import { isNullOrUndef } from "chart.js/helpers";
 import StatsTable from "../components/StatsTable";
@@ -33,7 +33,11 @@ function InfoPage()
     if (isNullOrUndef(pokemon))
     {
         return (
-            <div>No Data!</div>
+            <div className="content">
+                <h1>Info</h1>
+                <div>No Data!</div>
+            </div>
+            
         );
     }
     else

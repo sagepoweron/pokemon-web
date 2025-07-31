@@ -1,4 +1,4 @@
-import CompareListPanel from "../components/Compare/CompareListPanel";
+import CompareListPanel from "../components/CompareListPanel";
 
 export default ComparePage;
 

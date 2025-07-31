@@ -1,5 +1,5 @@
 import type { Key } from "react";
-import { useCompareContext } from "../../contexts/CompareContext";
+import { useCompareContext } from "../contexts/CompareContext";
 import "./CompareListPanel.css";
 
 export default CompareListPanel;
@@ -9,8 +9,7 @@ function CompareListPanel()
     const {clearCompareList} = useCompareContext();
 
     return (
-
-        <div className="comparePanel">
+        <div>
             <h1>Compare List</h1>
             <div className="controls">
                 <button onClick={() => clearCompareList()}>Clear List &#128936;</button>

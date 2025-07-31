@@ -1,10 +1,7 @@
 .comparePanel
 {
     margin: 8px;
-    padding: 8px;
     border: 1px solid #777;
-    background-color: lightblue;
-    border-radius: 8px;
 }
 
 .controls

@@ -2,8 +2,9 @@ export default SearchPage;
 import { useState, type Key } from "react";
 import "./SearchPage.css";
 import { getPokemon, getPokemonList } from "../services/api.ts";
-import CompareListPanel from "../components/Compare/CompareListPanel.tsx";
-import ResultCard from "../components/ResultCard.tsx";
+import CompareListPanel from "../components/CompareListPanel.tsx";
+import { useCompareContext } from "../contexts/CompareContext.tsx";
+import { Link } from "react-router-dom";
 
 function SearchPage()
 {
@@ -100,4 +101,36 @@ function Results({list}: {list: any})
         {list.map((item: { name: string; }, index: Key | null | undefined) => <li key = {index}><ResultCard name={item.name}></ResultCard></li>)}
     </ul>
     );
+}
+
+function ResultCard({ name }: { name: string })
+{
+    const {addToCompareList, removeFromCompareList, isInCompareList } = useCompareContext();
+
+    const params = new URLSearchParams();
+    params.append("name", name);
+    const page = "/info?"  + params.toString();
+
+    function compareClicked()
+    {
+        if (isInCompareList(name))
+        {
+            removeFromCompareList(name);
+        }
+        else
+        {
+            addToCompareList(name);
+        }
+    }
+    
+    return(
+        <div className="result">
+            <h4>{name}</h4>
+            <Link to={page}>
+                <button>Info</button>
+            </Link>
+            <button onClick={compareClicked}>{isInCompareList(name) ? "Remove" : "Add"}</button>
+        </div>
+    );
+
 }

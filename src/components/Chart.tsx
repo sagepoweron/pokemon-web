@@ -1,4 +1,7 @@
 import { Radar } from "react-chartjs-2";
+import type { Pokemon } from "../types";
+import { isNullOrUndef } from "chart.js/helpers";
+
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -8,8 +11,6 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
-import type { Pokemon } from "../types";
-import { isNullOrUndef } from "chart.js/helpers";
 ChartJS.register(
     RadialLinearScale,
     PointElement,
@@ -19,7 +20,9 @@ ChartJS.register(
     Legend
 );
 
-export function Chart({pokemon}: {pokemon: Pokemon})
+export default Chart;
+
+function Chart({pokemon}: {pokemon: Pokemon})
 {
     if (isNullOrUndef(pokemon))
     {
@@ -62,7 +65,6 @@ export function Chart({pokemon}: {pokemon: Pokemon})
     }
 
     return(
-        <Radar data={chartData} options={chartOptions}>
-        </Radar>
+        <Radar data={chartData} options={chartOptions}></Radar>
     );
 }

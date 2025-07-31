@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "./HomePage.css";
 import { getPokemon } from "../services/api";
 import type { Pokemon } from "../types";
+import SpinningImages from "../components/SpinningImages";
 
 export default HomePage;
 
@@ -34,6 +35,7 @@ function HomePage()
             <DisplayImage pokemon={pokemon}></DisplayImage>
         </div>
         
+        
         <div>Search for Pokemon using the search page, check their info, and then compare their stats on the compare page.</div>
     </div>
     );
@@ -42,5 +44,12 @@ function HomePage()
 function DisplayImage({pokemon}: {pokemon: Pokemon | undefined})
 {
     if (isNullOrUndef(pokemon)) return <></>;
-    return <img src={pokemon.sprites.front_default} className="pixelated"></img>
+    return (
+        <SpinningImages url1={pokemon.sprites.front_default} url2={pokemon.sprites.front_shiny}></SpinningImages>
+    );
+    /*return (
+        <div className="imageContainer">
+            <img src={pokemon.sprites.front_default} className="pixelated"></img>
+        </div>
+    );*/
 }
