@@ -43,18 +43,5 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.gridBox
-{
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 800px)
-{
-    .gridBox
-    {
-        grid-template-columns: 1fr 1fr;
-    }
+    text-align: left;
 }

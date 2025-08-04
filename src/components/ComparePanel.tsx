@@ -55,7 +55,7 @@ function CompareCard({ name }: { name: string })
     return(
     <div className="compareCard">
         <h4>{name}</h4>
-        <div>
+        <div className="row">
             <Link to={page}>
                 <button>Info</button>
             </Link>

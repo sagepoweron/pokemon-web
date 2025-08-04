@@ -10,7 +10,7 @@ export function CompareProvider({children} : Props) {
     const [compareList, setCompareList] = useState<string[]>([]);
 
     useEffect(() => {
-        const storedList = sessionStorage.getItem("compareList");
+        const storedList = localStorage.getItem("compareList");
 
         if (storedList)
         {
@@ -19,7 +19,7 @@ export function CompareProvider({children} : Props) {
     }, []);
 
     useEffect(() => {
-        sessionStorage.setItem("compareList", JSON.stringify(compareList))
+        localStorage.setItem("compareList", JSON.stringify(compareList))
     }, [compareList]);
 
     function addToCompareList(name: string)

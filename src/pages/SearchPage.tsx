@@ -52,6 +52,15 @@ function SearchPanel()
         setLoading(false);
     }
 
+    async function onListButtonClick(offset: string, size: string)
+    {
+        setLoading(true);
+        //await sleep(1000);
+        const results = await getPokemonList(offset, size);
+        setPokemonList(results);
+        setLoading(false);
+    }
+
     return (
         <div className="searchPanel">
             <h2>Search List</h2>
@@ -73,6 +82,16 @@ function SearchPanel()
                 </form>
                 <hr></hr>
                 <div>
+                    <button onClick={() => onListButtonClick("0", "151")}>1-151</button>
+                    <button onClick={() => onListButtonClick("151", "100")}>152-251</button>
+                    <button onClick={() => onListButtonClick("251", "135")}>252-386</button>
+                    <button onClick={() => onListButtonClick("386", "107")}>387-493</button>
+                    <button onClick={() => onListButtonClick("493", "156")}>494-649</button>
+                    <button onClick={() => onListButtonClick("649", "72")}>650-721</button>
+                    <button onClick={() => onListButtonClick("721", "88")}>722-809</button>
+                    <button onClick={() => onListButtonClick("809", "96")}>810-905</button>
+                    <button onClick={() => onListButtonClick("905", "120")}>906-1025</button>
+                    <button onClick={() => onListButtonClick("1025", "300")}>Alternate Forms</button>
                     <button onClick={clearSearchListClicked}>Clear List &#128936;</button>
                 </div>
             </div>
@@ -120,7 +139,7 @@ function SearchCard({ name }: { name: string })
     return(
         <div className="searchCard">
             <h4>{name}</h4>
-            <div>
+            <div className="row">
                 <Link to={page}>
                     <button>Info</button>
                 </Link>

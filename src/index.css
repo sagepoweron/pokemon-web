@@ -40,6 +40,32 @@ ul
 }
 
 
+.row
+{
+    display: flex;
+    flex-direction: row;
+}
+.column
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.gridBox
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+@media (min-width: 800px)
+{
+    .gridBox
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
 .loader
 {
     width: 48px;

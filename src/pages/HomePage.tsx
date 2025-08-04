@@ -22,7 +22,7 @@ function HomePage()
             setPokemon(result);
         }
 
-        const randomNumber = Math.floor(Math.random() * 1000) + 1; //between 1 and 1000
+        const randomNumber = Math.floor(Math.random() * 1025) + 1;
         getData(randomNumber.toString());
 
         return () => {effectRan.current = true};
