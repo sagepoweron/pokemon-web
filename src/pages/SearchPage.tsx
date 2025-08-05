@@ -106,11 +106,11 @@ function SearchList({list}: {list: any})
     if (list.length === 0)
     {
         return (
-            <div className="searchList">No results.</div>
+            <div className="list">No results.</div>
         );
     }
     return (
-    <div className="searchList">
+    <div className="list">
         {list.map((item: { name: string; }, index: Key | null | undefined) => <SearchCard name={item.name} key = {index}></SearchCard>)}
     </div>
     );
@@ -137,7 +137,7 @@ function SearchCard({ name }: { name: string })
     }
     
     return(
-        <div className="searchCard">
+        <div className="card">
             <h4>{name}</h4>
             <div className="row">
                 <Link to={page}>

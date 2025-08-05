@@ -27,13 +27,13 @@ function CompareList()
     if (compareList.length === 0)
     {
         return (
-        <div className="compareList">No results.</div>
+        <div className="list">No results.</div>
         );
     }
     else
     {
         return (
-        <div className="compareList">
+        <div className="list">
             {compareList.map((item: string, index: Key | null | undefined) => <CompareCard name={item} key = {index}></CompareCard>)}
         </div>
         );
@@ -53,7 +53,7 @@ function CompareCard({ name }: { name: string })
     }
 
     return(
-    <div className="compareCard">
+    <div className="card">
         <h4>{name}</h4>
         <div className="row">
             <Link to={page}>

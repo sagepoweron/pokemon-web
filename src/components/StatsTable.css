@@ -38,12 +38,6 @@
     margin: 4px;
 }
 
-.row
-{
-    display: flex;
-    flex-direction: row;
-}
-
 .stack
 {
     border: 1px solid gray;

@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState, type Key } from "react";
+import { useEffect, useState, type Key } from "react";
 import { useCompareContext } from "../contexts/CompareContext";
-import "./ComparePage.css";
 import type { Pokemon, Stat } from "../types";
 import { getPokemon } from "../services/api";
 import ComparePanel from "../components/ComparePanel";
@@ -45,11 +44,8 @@ function StatsList()
         setPokemonList(list);
     }
 
-    //const effectRan = useRef(false);
     useEffect(() => {
-        //if (effectRan.current) return;
         getPokemonList(compareList);
-        //return () => {effectRan.current = true};
     }, [compareList]);
     
     return (

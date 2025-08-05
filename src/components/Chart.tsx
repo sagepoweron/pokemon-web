@@ -1,7 +1,6 @@
 import { Radar } from "react-chartjs-2";
 import type { Pokemon } from "../types";
 import { isNullOrUndef } from "chart.js/helpers";
-import "./Chart.css";
 
 import {
     Chart as ChartJS,

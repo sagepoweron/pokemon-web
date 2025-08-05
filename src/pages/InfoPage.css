@@ -8,8 +8,6 @@
 .pixelated
 {
     width: 200px;
-    image-rendering: pixelated;
-    -ms-interpolation-mode: nearest-neighbor;
 }
 
 .chartContainer
