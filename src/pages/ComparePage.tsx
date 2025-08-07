@@ -14,6 +14,7 @@ function ComparePage()
         <h1>Compare</h1>
         <div className="gridBox">
             <div>
+                <h2>Stats</h2>
                 <StatsList></StatsList>
             </div>
             

@@ -1,5 +1,5 @@
 # Description
-Search, view, and compare Pokemon stats for battling.
+This application was created to help people view and compare Pokemon stats for competitive battling.
 
 # Tools Used
 - PokeAPI
@@ -8,7 +8,13 @@ Search, view, and compare Pokemon stats for battling.
 - VS Code
 
 ## How To Run
-- npm run dev
+1. Clone or download repository.
+2. Open project in Visual Studio or VS Code.
+3. Install dependencies by running the command "npm install".
+4. Start the development site using the command "npm run dev".
+5. Click on the displayed link while holding CTRL.
 
 ## How To Close
-- CTRL + C
+1. Close the site in your web browser.
+2. In the terminal press CTRL and C keys together.
+3. Close Visual Studio or VS Code.
